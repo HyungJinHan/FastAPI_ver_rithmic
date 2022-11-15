@@ -7,8 +7,8 @@ import database as _database
 class User(_database.Base):
   __tablename__ = 'users'
   id = _sql.Column(_sql.Integer, primary_key=True, index=True)
-  email = _sql.Column(_sql.String, unique=True, index=True)
-  hashed_password = _sql.Column(_sql.String)
+  email = _sql.Column(_sql.VARCHAR(255), unique=True, index=True)
+  hashed_password = _sql.Column(_sql.VARCHAR(255))
 
   leads = _orm.relationship('Lead', back_populates='owner')
 
@@ -19,12 +19,12 @@ class Lead(_database.Base):
   __tablename__ = 'leads'
   id = _sql.Column(_sql.Integer, primary_key=True, index=True)
   owner_id = _sql.Column(_sql.Integer, _sql.ForeignKey('users.id'))
-  first_name = _sql.Column(_sql.String, index=True)
-  last_name = _sql.Column(_sql.String, index=True)
-  email = _sql.Column(_sql.String, index=True)
-  company = _sql.Column(_sql.String, index=True, default='')
-  note = _sql.Column(_sql.String, default='')
-  date_create = _sql.Column(_sql.DateTime, default=_dt.datetime.utcnow)
+  first_name = _sql.Column(_sql.VARCHAR(255), index=True)
+  last_name = _sql.Column(_sql.VARCHAR(255), index=True)
+  email = _sql.Column(_sql.VARCHAR(255), index=True)
+  company = _sql.Column(_sql.VARCHAR(255), index=True, default='')
+  note = _sql.Column(_sql.VARCHAR(255), default='')
+  date_created = _sql.Column(_sql.DateTime, default=_dt.datetime.utcnow)
   date_last_updated = _sql.Column(_sql.DateTime, default=_dt.datetime.utcnow)
 
   owner = _orm.relationship('User', back_populates='leads')

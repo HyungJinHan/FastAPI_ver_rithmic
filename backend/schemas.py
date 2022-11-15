@@ -1,10 +1,8 @@
 import datetime as _dt
 from pydantic import BaseModel
-# 간단하게 입력할 데이터의 힌트를 주는 것이라고 생각
 
 class _UserBase(BaseModel):
   email: str
-  # email은 문자열로 입력하라고 힌트주는 것
 
 
 class UserCreate(_UserBase):
