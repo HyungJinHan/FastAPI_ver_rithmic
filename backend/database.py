@@ -10,17 +10,17 @@ pymysql.install_as_MySQLdb()
 
 load_dotenv()
 
-# DB_USERNAME : str = os.getenv("DB_USERNAME")
-# DB_PASSWORD : str = os.getenv("DB_PASSWORD")
-# DB_HOST : str = os.getenv("DB_HOST")
-# DB_PORT : str = os.getenv("DB_PORT")
-# DB_DATABASE : str = os.getenv("DB_DATABASE")
+DB_USERNAME : str = os.getenv("DB_USERNAME")
+DB_PASSWORD : str = os.getenv("DB_PASSWORD")
+DB_HOST : str = os.getenv("DB_HOST")
+DB_PORT : str = os.getenv("DB_PORT")
+DB_DATABASE : str = os.getenv("DB_DATABASE")
 
 DB_URL : str = os.getenv("DB_URL")
 
-# DATABASE_URL = 'mysql://root:123456@localhost:3306/test'
+DATABASE_URL = f"mysql://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_DATABASE}"
 
-DATABASE_URL = f"{DB_URL}"
+# DATABASE_URL = f"{DB_URL}"
 
 engine = _sql.create_engine(DATABASE_URL)
 

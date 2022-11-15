@@ -16,6 +16,7 @@ class User(_database.Base):
     return _hash.bcrypt.verify(password, self.hashed_password)
 
 class Lead(_database.Base):
+  # mysql의 경우 String, VARCHAR 등 숫자를 지정해줘야 테이블 생성 가능
   __tablename__ = 'leads'
   id = _sql.Column(_sql.Integer, primary_key=True, index=True)
   owner_id = _sql.Column(_sql.Integer, _sql.ForeignKey('users.id'))
