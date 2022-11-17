@@ -1,6 +1,7 @@
 import React from 'react';
 import { useContext } from 'react';
 import { useState } from 'react';
+import ErrorMessage from './ErrorMessage';
 import { UserContext } from './UserContext';
 
 function Register(props) {
@@ -18,11 +19,31 @@ function Register(props) {
       },
       body: JSON.stringify({ email: email, hashed_password: password })
     };
+
+    const response = await fetch('/api/users', requestOptions);
+    const data = await response.json();
+
+    if (!response.ok) {
+      setErrorMessage(data.detail);
+    } else {
+      setToken(data.access_token);
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (password === chkPassword && password.length >= 10) {
+      submitRegistration();
+    } else if (password.length < 10) {
+      setErrorMessage('Check Your Password Length (Greater than 10 Character)');
+    } else if (password !== chkPassword) {
+      setErrorMessage('Incorrect Password and Password Check');
+    }
   }
 
   return (
     <div className="column">
-      <form className="box">
+      <form className="box" onSubmit={handleSubmit}>
         <h1 className="title has-text-center">Register</h1>
         <div className="field">
           <label className="label">Email Address</label>
@@ -72,6 +93,7 @@ function Register(props) {
             />
           </div>
         </div>
+        <ErrorMessage message={errorMessage} />
         <br />
         <button className="button is-primaty" type='submit'>
           Register
